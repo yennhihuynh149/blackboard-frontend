@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import LoginPage from "./pages/loginPage";
-import AssignmentPage from "./pages/assignment";
+import CoursePage from "./pages/coursePage"
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 const App = () => (
@@ -11,7 +11,7 @@ const App = () => (
         <LoginPage />
       </Route>
       <Route path="/assignment">
-        <AssignmentPage />
+        <CoursePage />
       </Route>
     </Switch>
   </BrowserRouter>
