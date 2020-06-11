@@ -1,0 +1,17 @@
+.ant-layout-content {
+    margin: auto;
+}
+
+.divLogin {
+    text-align: center;
+    margin-top: 180px;
+}
+
+#basic {
+    width: 500px;
+    margin: 40px;
+    border: 1px solid;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px 5px;
+}

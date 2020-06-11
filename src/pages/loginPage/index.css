@@ -1,0 +1,16 @@
+.header {
+    background: hsl(209, 100%, 8%);
+    color: white;
+    font-weight: bold;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: #001529;
+    color: white;
+    font-weight: bold;
+}

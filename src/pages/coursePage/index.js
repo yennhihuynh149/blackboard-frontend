@@ -7,10 +7,13 @@ import {
 } from "@ant-design/icons";
 
 import "./coursePage.css";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
+
 
 class CoursePage extends React.Component {
   constructor(props) {
@@ -34,8 +37,8 @@ class CoursePage extends React.Component {
             collapsedWidth="0"
             width={200}
             className="site-layout-background"
-          > 
-            <Title level={3} style={{'padding-left': '5%'}}>Course Name</Title>
+          >
+            <Title level={3} style={{ paddingLeft: '5%' }}>Course Name</Title>
             <Menu
               mode="inline"
               defaultSelectedKeys={["1"]}
@@ -80,7 +83,7 @@ class CoursePage extends React.Component {
                 minHeight: 280,
               }}
             >
-              Content
+              <ReactQuill />
             </Content>
           </Layout>
         </Layout>

@@ -13,7 +13,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <Layout>
-        <Header>
+        <Header className="header">
           BlackBoard
         </Header>
 
@@ -22,7 +22,9 @@ class LoginPage extends React.Component {
           <LoginForm />
         </Content>
 
-        <Footer>Footer</Footer>
+        <Footer className="footer">
+          Copy right by Huynh Yen Nhi
+        </Footer>
       </Layout>
     );
   }
