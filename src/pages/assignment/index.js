@@ -58,7 +58,7 @@ class AssignmentPage extends React.Component {
                             <CreateAssignment></CreateAssignment>
                         </div>
                     </Content>
-                    <Footer className="footer">Ant Design ©2018 Created by Ant UED</Footer>
+                    <Footer className="footer">Copy right by Huynh Yen Nhi</Footer>
                 </Layout>
             </Layout>
         );
