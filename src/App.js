@@ -14,9 +14,9 @@ const App = () => (
       <Route exact path="/assignment">
         <AssignmentPage/>
       </Route>
-      <Route path="/coursepage">
+      {/* <Route path="/coursepage">
         <CoursePage />
-      </Route>
+      </Route> */}
     </Switch>
   </BrowserRouter>
 );

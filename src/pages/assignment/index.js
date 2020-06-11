@@ -1,67 +1,85 @@
-import React from 'react';
-import './index.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import React from "react";
+import "./index.css";
+import { Layout, Menu, Breadcrumb } from "antd";
 import {
-    DesktopOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    TeamOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
-import CreateAssignment from '../../components/createAssignment/index';
+  DesktopOutlined,
+  PieChartOutlined,
+  FileOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import CreateAssignment from "../../components/createAssignment/index";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 class AssignmentPage extends React.Component {
-    state = {
-        collapsed: false,
-    };
+  state = {
+    collapsed: false,
+  };
 
-    onCollapse = collapsed => {
-        console.log(collapsed);
-        this.setState({ collapsed });
-    };
+  onCollapse = (collapsed) => {
+    console.log(collapsed);
+    this.setState({ collapsed });
+  };
 
-    render() {
-        return (
-            <Layout style={{ minHeight: '100vh' }}>
-                <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-                    <div className="logo" />
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                        <Menu.Item key="1" icon={<PieChartOutlined />}>
-                            Option 1
-                        </Menu.Item>
-                            <Menu.Item key="2" icon={<DesktopOutlined />}>
-                                Option 2
-                        </Menu.Item>
-                        <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-                            <Menu.Item key="3">Tom</Menu.Item>
-                            <Menu.Item key="4">Bill</Menu.Item>
-                            <Menu.Item key="5">Alex</Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-                            <Menu.Item key="6">Team 1</Menu.Item>
-                            <Menu.Item key="8">Team 2</Menu.Item>
-                        </SubMenu>
-                        <Menu.Item key="9" icon={<FileOutlined />} />
-                    </Menu>
-                </Sider>
-                <Layout className="site-layout">
-                    <Header className="site-layout-background" style={{ padding: 0 }} />
-                    <Content style={{ margin: '0 16px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Create Assignment</Breadcrumb.Item>
-                            
-                        </Breadcrumb>
-                        <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                            <CreateAssignment></CreateAssignment>
-                        </div>
-                    </Content>
-                    <Footer className="footer">Copy right by Huynh Yen Nhi</Footer>
-                </Layout>
-            </Layout>
-        );
-    }
+  render() {
+    return (
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sider
+          collapsible
+          collapsed={this.state.collapsed}
+          onCollapse={this.onCollapse}
+        >
+          <div className="logo" />
+          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+            <Menu.Item key="1" icon={<PieChartOutlined />}>
+              Option 1
+            </Menu.Item>
+            <Menu.Item key="2" icon={<DesktopOutlined />}>
+              Option 2
+            </Menu.Item>
+            <SubMenu key="sub1" icon={<UserOutlined />} title="User">
+              <Menu.Item key="3">Tom</Menu.Item>
+              <Menu.Item key="4">Bill</Menu.Item>
+              <Menu.Item key="5">Alex</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
+              <Menu.Item key="6">Team 1</Menu.Item>
+              <Menu.Item key="8">Team 2</Menu.Item>
+            </SubMenu>
+            <Menu.Item key="9" icon={<FileOutlined />} />
+          </Menu>
+        </Sider>
+        <Layout className="site-layout">
+          <Header className="site-layout-background" style={{ padding: 0 }} />
+          <Content style={{ margin: "0 16px" }}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
+              <Breadcrumb.Item>Create Assignment</Breadcrumb.Item>
+            </Breadcrumb>
+
+            <div
+              className="site-layout-background"
+              style={{ padding: 24, minHeight: 360 }}
+            >
+              <BrowserRouter>
+                <Switch>
+                  <Route exact path="/assignment">
+                      <h1>List of assignment</h1>
+                      <Link to="/assignment/create">Create new assignment</Link>
+                  </Route>
+                  <Route path="/assignment/create">
+                    <CreateAssignment></CreateAssignment>
+                  </Route>
+                </Switch>
+              </BrowserRouter>
+            </div>
+          </Content>
+          {/* <Footer className="footer">Copy right by Huynh Yen Nhi</Footer> */}
+        </Layout>
+      </Layout>
+    );
+  }
 }
 export default AssignmentPage;
