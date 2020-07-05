@@ -18,12 +18,11 @@ class LoginPage extends React.Component {
         </Header>
 
         <Content>
-          
           <LoginForm />
         </Content>
 
         <Footer className="footer">
-          Copy right by Huynh Yen Nhi
+          Copyright by Huynh Yen Nhi
         </Footer>
       </Layout>
     );

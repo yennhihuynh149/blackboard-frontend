@@ -9,6 +9,13 @@ import {
 import "./coursePage.css";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import ApolloClient, { gql } from 'apollo-boost';
+import { BrowserRouter, Switch, Route, Link, useHistory } from "react-router-dom";
+
+import CreateAssignment from '../../components/createAssignment'
+
+import CourseView from '../../components/courseView'
+
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -18,7 +25,33 @@ const { Title } = Typography;
 class CoursePage extends React.Component {
   constructor(props) {
     super(props);
+    let gqlClient = new ApolloClient({
+      uri: 'http://localhost:16021/graphqlsms'
+    })
+    this.state = {
+      gqlClient: gqlClient
+    }
   }
+  componentDidMount() {
+    this.state.gqlClient.query({
+      query: gql`
+        {
+          getAllCourses {
+            name, code, _id
+        }
+      }
+      `
+    }).then(result => {
+      console.log(result.data.getAllCourses);
+      
+      this.setState({
+        courses: result.data.getAllCourses
+      })
+    }).catch(error => {
+      console.log("Error:", error)
+    })
+  }
+
 
   render() {
     return (
@@ -26,9 +59,6 @@ class CoursePage extends React.Component {
         <Header className="header">
           {/* <div className="logo" /> */}
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-            {/* <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item> */}
           </Menu>
         </Header>
         <Layout className="bb-container">
@@ -38,43 +68,29 @@ class CoursePage extends React.Component {
             width={200}
             className="site-layout-background"
           >
-            <Title level={3} style={{ paddingLeft: '5%' }}>Course Name</Title>
+            <Title level={3} style={{ paddingLeft: '5%' }}>Welcome</Title>
             <Menu
               mode="inline"
               defaultSelectedKeys={["1"]}
               defaultOpenKeys={["sub1"]}
               style={{ height: "100%", borderRight: 0 }}
             >
-              <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                <Menu.Item key="1">option1</Menu.Item>
-                <Menu.Item key="2">option2</Menu.Item>
-                <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                <Menu.Item key="5">option5</Menu.Item>
-                <Menu.Item key="6">option6</Menu.Item>
-                <Menu.Item key="7">option7</Menu.Item>
-                <Menu.Item key="8">option8</Menu.Item>
-              </SubMenu>
-              <SubMenu
-                key="sub3"
-                icon={<NotificationOutlined />}
-                title="subnav 3"
-              >
-                <Menu.Item key="9">option9</Menu.Item>
-                <Menu.Item key="10">option10</Menu.Item>
-                <Menu.Item key="11">option11</Menu.Item>
-                <Menu.Item key="12">option12</Menu.Item>
+              <SubMenu key="sub1" icon={<UserOutlined />} title="Course List">
+                {
+                  (this.state.courses || []).map((course) =>
+                  <Menu.Item  
+                    onClick={() => {
+                      this.setState({activeCourse: course})
+                    }}
+                    key={course.code}>
+                      {course.name}
+                  </Menu.Item>
+                  )
+                }
               </SubMenu>
             </Menu>
           </Sider>
           <Layout style={{ padding: "0 24px 24px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
             <Content
               className="site-layout-background"
               style={{
@@ -83,7 +99,17 @@ class CoursePage extends React.Component {
                 minHeight: 280,
               }}
             >
-              <ReactQuill />
+              <BrowserRouter>
+                <Switch>
+                  <Route exact path="/course">
+                    <CourseView course={this.state.activeCourse} /> 
+                  </Route>
+                  <Route exact path="/course/assignment">
+                    <CreateAssignment course={this.state.activeCourse} />
+                  </Route>
+                </Switch>
+              </BrowserRouter>
+
             </Content>
           </Layout>
         </Layout>

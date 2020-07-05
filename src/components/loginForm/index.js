@@ -53,7 +53,7 @@ class LoginForm extends Component {
           </Button>
           </Form.Item>
         </Form>
-        {this.state.isAuthenticated === true ? <Redirect to ="/assignment"/> : null}
+        {this.state.isAuthenticated === true ? <Redirect to ="/course"/> : null}
       </div>
     );
   }
